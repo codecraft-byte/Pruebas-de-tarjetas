@@ -10,8 +10,17 @@
     <!-- Luna -->
     <div class="moon"></div>
 
+    <!-- Aurora Boreal -->
+    <div class="aurora">
+      <div class="aurora-layer"></div>
+      <div class="aurora-layer"></div>
+    </div>
+
     <!-- Estrellas -->
     <div class="stars" id="stars"></div>
+
+    <!-- Partículas brillantes -->
+    <div class="particles" id="particles"></div>
 
     <!-- Estrellas fugaces -->
     <div class="shooting-stars" id="shootingStars"></div>
@@ -19,11 +28,20 @@
     <!-- Corazones flotantes -->
     <div class="floating-hearts" id="floatingHearts"></div>
 
+    <!-- Anillos giratorios -->
+    <div class="rotating-rings">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+    </div>
+
     <!-- Tarjeta principal -->
     <div class="card">
       <h1>Feliz San Valentín</h1>
 
       <div class="heart-container">
+        <div class="heart-pulse"></div>
+        <div class="heart-pulse" style="animation-delay: 0.5s"></div>
         <div class="heart"></div>
       </div>
 
@@ -41,11 +59,19 @@
       </p>
 
       <button class="interactive-btn" onclick="mostrarMensajeEspecial()">
-        💫 Descubre algo especial 💫
+        <span style="position: relative; z-index: 1"
+          >💫 Descubre algo especial 💫</span
+        >
       </button>
 
       <p class="signature">Con todo mi amor ❤️</p>
     </div>
+
+    <!-- Botón de música -->
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵</button>
+
+    <!-- Overlay oscuro -->
+    <div class="overlay" id="overlay" onclick="cerrarMensaje()"></div>
 
     <!-- Mensaje especial oculto -->
     <div class="hidden-message" id="hiddenMessage">
@@ -60,6 +86,15 @@
       </p>
       <button class="close-btn" onclick="cerrarMensaje()">Cerrar</button>
     </div>
+
+    <!-- Audio de fondo (música romántica) -->
+    <audio id="backgroundMusic" loop>
+      <source
+        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <script src="script.js"></script>
   </body>
-  <script src="script.js"></script>
 </html>

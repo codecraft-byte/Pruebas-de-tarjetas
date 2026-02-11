@@ -7,11 +7,22 @@
 body {
   font-family: "Georgia", serif;
   overflow: hidden;
-  background: linear-gradient(to bottom, #0a0e27 0%, #1a1642 50%, #2d1b4e 100%);
+  background: linear-gradient(to bottom, #000 0%, #0000 50%, #000000 100%);
+
   height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+html {
+  overflow: hidden;
+  background-color: #000;
 }
 
 /* Estrellas en el fondo */
@@ -22,6 +33,7 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 1;
 }
 
 .star {
@@ -43,6 +55,54 @@ body {
   }
 }
 
+/* Aurora Boreal */
+.aurora {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.6;
+}
+
+.aurora-layer {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 105, 180, 0.3) 25%,
+    rgba(138, 43, 226, 0.3) 50%,
+    rgba(255, 105, 180, 0.3) 75%,
+    transparent 100%
+  );
+  animation: aurora 20s linear infinite;
+}
+
+.aurora-layer:nth-child(2) {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 20, 147, 0.2) 25%,
+    rgba(186, 85, 211, 0.2) 50%,
+    rgba(255, 20, 147, 0.2) 75%,
+    transparent 100%
+  );
+  animation: aurora 15s linear infinite reverse;
+}
+
+@keyframes aurora {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
 /* Estrellas fugaces */
 .shooting-star {
   position: absolute;
@@ -54,6 +114,7 @@ body {
   );
   animation: shoot 3s linear infinite;
   opacity: 0;
+  z-index: 3;
 }
 
 @keyframes shoot {
@@ -70,17 +131,57 @@ body {
   }
 }
 
+/* Partículas brillantes */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1),
+    rgba(255, 182, 193, 0.5)
+  );
+  border-radius: 50%;
+  animation: particleFloat 6s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-50px) translateX(30px);
+    opacity: 1;
+  }
+}
+
 /* Tarjeta principal */
 .card {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
-  padding: 50px 40px;
-  max-width: 500px;
+  padding: 30px 25px;
+  max-width: 420px;
+  width: 100%;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
+  box-shadow:
+    0 20px 60px rgba(255, 105, 180, 0.4),
+    0 0 100px rgba(255, 105, 180, 0.2);
   position: relative;
   z-index: 10;
   animation: fadeInCard 1.5s ease-out;
+  backdrop-filter: blur(10px);
 }
 
 @keyframes fadeInCard {
@@ -94,19 +195,72 @@ body {
   }
 }
 
+/* Anillos giratorios alrededor de la tarjeta */
+.rotating-rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  pointer-events: none;
+  z-index: 9;
+}
+
+.ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid transparent;
+  border-radius: 50%;
+  border-top-color: rgba(255, 105, 180, 0.5);
+  border-right-color: rgba(255, 105, 180, 0.3);
+}
+
+.ring:nth-child(1) {
+  width: 100%;
+  height: 100%;
+  animation: rotate 8s linear infinite;
+}
+
+.ring:nth-child(2) {
+  width: 110%;
+  height: 110%;
+  animation: rotate 12s linear infinite reverse;
+  border-top-color: rgba(186, 85, 211, 0.4);
+}
+
+.ring:nth-child(3) {
+  width: 120%;
+  height: 120%;
+  animation: rotate 15s linear infinite;
+  border-top-color: rgba(255, 20, 147, 0.3);
+}
+
+@keyframes rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
 /* Corazón principal */
 .heart-container {
   position: relative;
-  margin: 20px auto;
-  width: 100px;
-  height: 100px;
+  margin: 15px auto;
+  width: 80px;
+  height: 80px;
 }
 
 .heart {
   position: absolute;
-  width: 100px;
-  height: 90px;
+  width: 80px;
+  height: 72px;
   animation: heartbeat 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(255, 23, 68, 0.6));
 }
 
 .heart:before,
@@ -114,14 +268,14 @@ body {
   content: "";
   position: absolute;
   top: 0;
-  width: 52px;
-  height: 80px;
+  width: 42px;
+  height: 64px;
   border-radius: 50px 50px 0 0;
-  background: #ff1744;
+  background: linear-gradient(135deg, #ff1744 0%, #ff6090 100%);
 }
 
 .heart:before {
-  left: 50px;
+  left: 40px;
   transform: rotate(-45deg);
   transform-origin: 0 100%;
 }
@@ -139,11 +293,35 @@ body {
   }
   10%,
   30% {
-    transform: scale(1.1);
+    transform: scale(1.15);
   }
   20%,
   40% {
     transform: scale(1);
+  }
+}
+
+/* Pulso de luz alrededor del corazón */
+.heart-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  border: 3px solid rgba(255, 23, 68, 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 2s ease-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
   }
 }
 
@@ -156,6 +334,7 @@ body {
   height: 100%;
   pointer-events: none;
   overflow: hidden;
+  z-index: 5;
 }
 
 .floating-heart {
@@ -164,6 +343,7 @@ body {
   color: #ff1744;
   animation: float 6s linear infinite;
   opacity: 0;
+  filter: drop-shadow(0 0 5px rgba(255, 23, 68, 0.8));
 }
 
 @keyframes float {
@@ -186,17 +366,29 @@ body {
 /* Texto */
 h1 {
   color: #ff1744;
-  font-size: 2.5em;
-  margin-bottom: 20px;
+  font-size: clamp(1.8em, 5vw, 2.2em);
+  margin-bottom: 15px;
   text-shadow: 2px 2px 4px rgba(255, 23, 68, 0.3);
-  animation: fadeIn 2s ease-out 0.5s both;
+  animation:
+    fadeIn 2s ease-out 0.5s both,
+    shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
 }
 
 .message {
   color: #333;
-  font-size: 1.2em;
-  line-height: 1.8;
-  margin: 20px 0;
+  font-size: clamp(0.95em, 2.5vw, 1.1em);
+  line-height: 1.7;
+  margin: 15px 0;
   animation: fadeIn 2s ease-out 1s both;
 }
 
@@ -214,8 +406,8 @@ h1 {
 .signature {
   color: #666;
   font-style: italic;
-  margin-top: 30px;
-  font-size: 1.1em;
+  margin-top: 20px;
+  font-size: clamp(0.95em, 2.5vw, 1.05em);
   animation: fadeIn 2s ease-out 1.5s both;
 }
 
@@ -224,45 +416,146 @@ h1 {
   background: linear-gradient(45deg, #ff1744, #ff6090);
   color: white;
   border: none;
-  padding: 15px 40px;
+  padding: 12px 28px;
   border-radius: 50px;
-  font-size: 1.1em;
+  font-size: clamp(0.9em, 2vw, 1em);
   cursor: pointer;
-  margin-top: 30px;
+  margin-top: 20px;
   box-shadow: 0 5px 15px rgba(255, 23, 68, 0.4);
   transition: all 0.3s ease;
-  animation: fadeIn 2s ease-out 2s both;
+  animation:
+    fadeIn 2s ease-out 2s both,
+    buttonPulse 2s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.interactive-btn:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.6s,
+    height 0.6s;
+}
+
+.interactive-btn:hover:before {
+  width: 300px;
+  height: 300px;
 }
 
 .interactive-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(255, 23, 68, 0.6);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 23, 68, 0.6);
 }
 
 .interactive-btn:active {
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.02);
+}
+
+@keyframes buttonPulse {
+  0%,
+  100% {
+    box-shadow: 0 5px 15px rgba(255, 23, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 5px 25px rgba(255, 23, 68, 0.8);
+  }
+}
+
+/* Botón de música */
+.music-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(45deg, #ff1744, #ff6090);
+  color: white;
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: 1.5em;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 23, 68, 0.5);
+  transition: all 0.3s ease;
+  z-index: 100;
+  animation: fadeIn 2s ease-out 2.5s both;
+}
+
+.music-btn:hover {
+  transform: scale(1.1) rotate(15deg);
+}
+
+.music-btn.playing {
+  animation: musicPulse 0.6s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 /* Luna */
 .moon {
   position: fixed;
-  top: 10%;
-  right: 10%;
+  top: 8%;
+  right: 8%;
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: #f4f4f4;
-  box-shadow: 0 0 40px rgba(244, 244, 244, 0.8);
+  background: radial-gradient(circle at 30% 30%, #fff, #f4f4f4);
+  box-shadow:
+    0 0 40px rgba(244, 244, 244, 0.8),
+    inset -10px -10px 20px rgba(0, 0, 0, 0.1);
   animation: glow 4s ease-in-out infinite;
+  z-index: 6;
+}
+
+.moon:before {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(200, 200, 200, 0.3);
+  top: 20px;
+  left: 25px;
+}
+
+.moon:after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(200, 200, 200, 0.2);
+  top: 45px;
+  left: 50px;
 }
 
 @keyframes glow {
   0%,
   100% {
-    box-shadow: 0 0 40px rgba(244, 244, 244, 0.8);
+    box-shadow:
+      0 0 40px rgba(244, 244, 244, 0.8),
+      inset -10px -10px 20px rgba(0, 0, 0, 0.1);
   }
   50% {
-    box-shadow: 0 0 60px rgba(244, 244, 244, 1);
+    box-shadow:
+      0 0 60px rgba(244, 244, 244, 1),
+      0 0 100px rgba(244, 244, 244, 0.5),
+      inset -10px -10px 20px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -279,27 +572,271 @@ h1 {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.5s ease;
-  z-index: 100;
-  max-width: 400px;
+  z-index: 101;
+  max-width: 90%;
+  width: 400px;
   text-align: center;
 }
 
 .hidden-message.show {
   opacity: 1;
   pointer-events: auto;
+  animation: bounceIn 0.6s ease-out;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
 }
 
 .close-btn {
   background: #ff1744;
   color: white;
   border: none;
-  padding: 10px 30px;
+  padding: 12px 35px;
   border-radius: 25px;
   cursor: pointer;
   margin-top: 20px;
   font-size: 1em;
+  transition: all 0.3s ease;
 }
 
 .close-btn:hover {
   background: #d50032;
+  transform: scale(1.05);
+}
+
+/* Overlay oscuro para el mensaje */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 100;
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* RESPONSIVE DESIGN */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .card {
+    padding: 28px 22px;
+    margin: 15px;
+    max-width: 380px;
+  }
+
+  .moon {
+    width: 60px;
+    height: 60px;
+    top: 5%;
+    right: 5%;
+  }
+
+  .moon:before {
+    width: 12px;
+    height: 12px;
+    top: 15px;
+    left: 18px;
+  }
+
+  .moon:after {
+    width: 8px;
+    height: 8px;
+    top: 35px;
+    left: 38px;
+  }
+
+  .heart-container {
+    width: 70px;
+    height: 70px;
+  }
+
+  .heart {
+    width: 70px;
+    height: 63px;
+  }
+
+  .heart:before,
+  .heart:after {
+    width: 36px;
+    height: 56px;
+  }
+
+  .heart:before {
+    left: 35px;
+  }
+
+  .music-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2em;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .hidden-message {
+    padding: 30px 25px;
+    max-width: 85%;
+  }
+
+  .rotating-rings {
+    width: 130%;
+    height: 130%;
+  }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 25px 18px;
+    border-radius: 15px;
+    max-width: 340px;
+  }
+
+  h1 {
+    margin-bottom: 12px;
+  }
+
+  .message {
+    margin: 12px 0;
+  }
+
+  .heart-container {
+    width: 65px;
+    height: 65px;
+    margin: 12px auto;
+  }
+
+  .heart {
+    width: 65px;
+    height: 58px;
+  }
+
+  .heart:before,
+  .heart:after {
+    width: 34px;
+    height: 52px;
+  }
+
+  .heart:before {
+    left: 32px;
+  }
+
+  .interactive-btn {
+    padding: 10px 22px;
+    margin-top: 18px;
+  }
+
+  .signature {
+    margin-top: 18px;
+  }
+
+  .moon {
+    width: 50px;
+    height: 50px;
+    top: 3%;
+    right: 3%;
+  }
+
+  .moon:before {
+    width: 10px;
+    height: 10px;
+    top: 12px;
+    left: 15px;
+  }
+
+  .moon:after {
+    width: 6px;
+    height: 6px;
+    top: 28px;
+    left: 32px;
+  }
+
+  .music-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1em;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .hidden-message {
+    padding: 25px 20px;
+    max-width: 90%;
+  }
+
+  .hidden-message h2 {
+    font-size: 1.3em;
+  }
+
+  .hidden-message p {
+    font-size: 1em;
+  }
+
+  .floating-heart {
+    font-size: 20px;
+  }
+
+  .rotating-rings {
+    width: 140%;
+    height: 140%;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 320px) {
+  .card {
+    padding: 20px 15px;
+    max-width: 280px;
+  }
+
+  .heart-container {
+    width: 55px;
+    height: 55px;
+  }
+
+  .heart {
+    width: 55px;
+    height: 50px;
+  }
+
+  .heart:before,
+  .heart:after {
+    width: 28px;
+    height: 44px;
+  }
+
+  .heart:before {
+    left: 28px;
+  }
+
+  .interactive-btn {
+    padding: 8px 18px;
+  }
 }
